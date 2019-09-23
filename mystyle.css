@@ -1,0 +1,14 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 50px;
+    height: 100%;
+    overflow: hidden;
+    background-color: antiquewhite;
+}
+
+.completed{
+    text-decoration: line-through;
+}
+span{
+    color: yellow;
+}
