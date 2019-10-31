@@ -20,6 +20,7 @@
 <style scoped>
     p{
         margin: 0px;
+        line-height: 25px;
         padding-top: 15px;
         color: lightslategray;
     }

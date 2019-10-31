@@ -2,13 +2,13 @@
     <div id="content">
         <div id="groups">
             <ul ref="lis">
-                <li v-for="(group,index) in allgroup" v-bind:key="index" v-bind:ind="index" v-bind:class="{actived:group.active}" >
-                    <span id="title" v-on:click="changeshowind">{{group.title}}</span>
-                    <img id="deleteimg" src="../image/delete1.png" v-on:click="deletethis"/>
+                <li v-for="(group,index) in allgroup" v-bind:key="group.id" v-bind:ind="index" v-bind:class="{actived:group.active}" >
+                    <span class="title" v-on:click="changeshowind">{{group.title}}</span>
+                    <button v-on:click="deletethis"></button>
                 </li>
                 <li  v-on:click="addgroup" >
                     <img id="addimg" src="../image/add.png" />
-                    <span>增加</span>
+                    <span class="title">增加</span>
                 </li>
             </ul>
         </div>
@@ -26,8 +26,10 @@
             return {
                 showind:0,
                 getallgroup:[],
+                nextid:1,
                 allgroup:[
                     {
+                        id:0,
                         active:true,
                         title: "生活",
                         todo: [{
@@ -88,18 +90,20 @@
         },
         methods: {
             changeshowind:function (event) {
-                //alert(event);
+                //console.log(event);
                 this.allgroup[this.showind].active=false;
                 let i=event.target.parentElement.getAttribute("ind");
                 this.showind=i;
                 this.allgroup[i].active=true;
             },
             addgroup:function () {
-                var newgroup={
+                let newgroup={
+                    id:this.nextid,
                     title: "新分组",
                     todo:[],
                     active:true
-                }
+                };
+                this.nextid++;
                 this.allgroup.push(newgroup);
                 this.allgroup[this.showind].active=false;
                 this.showind=this.allgroup.length-1;
@@ -110,7 +114,16 @@
             },
             deletethis:function (event) {
                 let i=event.target.parentElement.getAttribute("ind");
+                if(i==0&&this.allgroup.length==1){
+                    alert("请保留至少一个分组！");
+                    return;
+                }
                 this.allgroup.splice(i,1);
+                if(this.showind==i){
+                    //this.allgroup[i].active=false;
+                    this.showind=0;
+                    this.allgroup[0].active=true;
+                }
             }
         },
         created() {
@@ -130,37 +143,74 @@
                 //console.log(this.allgroup.length);
             });
         },
-        watch:{
-            allgroup:{
-                handler(newval)
-                {
-                    //console.log(newval);
-                    var json = JSON.stringify(newval);
-                    //console.log(json);
-                    axios.post("http://101.132.35.12:8080/todolist/todolistServlet", json);
-                },
-                deep:true
-            }
-        }
+        beforeDestroy(){
+            //console.log(newval);
+            var json = JSON.stringify(this.allgroup);
+            //console.log(json);
+            axios.post("http://101.132.35.12:8080/todolist/todolistServlet", json);
+        },
+        // watch:{
+        //     allgroup:{
+        //         handler(newval)
+        //         {
+        //             //console.log(newval);
+        //             var json = JSON.stringify(newval);
+        //             //console.log(json);
+        //             axios.post("http://101.132.35.12:8080/todolist/todolistServlet", json);
+        //         },
+        //         deep:true
+        //     }
+        // }
     }
 </script>
 
 <style scoped>
+    @media screen and (orientation: landscape) {
+        #content{
+            flex-direction: row;
+            width: 70%;
+            min-width: 760px;
+        }
+        li{
+            border-top: lightgray solid 1px;
+        }
+        #groups{
+            float: left;
+            width: 20%;
+            padding-top: 65px;
+            padding-bottom: 35px;
+        }
+    }
+    @media screen and (orientation: portrait){
+        #content{
+            flex-direction: column;
+            width: 100%;
+        }
+        ul{
+            white-space: nowrap;
+            height: 100%;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        li{
+            display: inline-block;
+            width: 152px;
+            border-right: lightgray solid 1px;
+        }
+        #groups{
+            height: 50px;
+            width: 100%;
+        }
+    }
     #content{
+        display: flex;
+        justify-content: center;
         margin: auto;
         height: 100%;
-        width: 70%;
-        min-width: 760px;
         box-sizing: border-box;
         position: relative;
         overflow: hidden;
-    }
-
-    #groups{
-        float: left;
-        width: 20%;
-        padding-top: 65px;
-        padding-bottom: 35px;
     }
     ul{
         list-style: none;
@@ -173,31 +223,38 @@
         font-size: 18px;
         color: lightgray;
         padding-left: 10px;
-        border-top: lightgray solid 1px;
+        overflow: hidden;
     }
     .actived{
         color: white;
     }
-    span#title{
-        overflow: hidden;
+    .title{
+        display: inline-block;
+        width:100px;
         text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
         white-space:nowrap;
-        width:100px;
-        display: inline-block;
     }
-    img#addimg{
+    #addimg{
+        display: inline-block;
         width: 15px;
         height: 15px;
         display: inline;
         margin-right: 10px;
     }
-    img#deleteimg{
-        width: 15px;
-        height: 15px;
+    button{
+        background-color: transparent;
+        background-image: url("../image/delete1.png");
+        background-repeat: no-repeat;
+        background-size: 20px 20px;
+        background-position-x: center;
+        background-position-y: bottom;
+        border: 0;
+        width: 40px;
+        height: 30px;
         margin-right: 10px;
         float: right;
-        margin-top: 25px;
+        margin-top: 10px;
     }
     #groups::-webkit-scrollbar{
         width: 10px;

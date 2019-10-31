@@ -16,6 +16,7 @@
 <style scoped>
     p{
         color: lightslategray;
+        line-height: 25px;
     }
     button{
         background-color: white;

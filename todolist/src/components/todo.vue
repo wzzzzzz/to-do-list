@@ -128,7 +128,7 @@
 
 <style scoped>
     #mytodo{
-        overflow: auto;
+        overflow-y: auto;
         height: calc(100% - 35px);
         box-sizing: border-box;
         padding-left: 50px;

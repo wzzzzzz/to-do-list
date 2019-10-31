@@ -96,7 +96,7 @@
 <style scoped>
     li{
         padding-top: 20px;
-        /*height: 25px;*/
+        line-height: 25px;
     }
     span{
         padding-left: 10px;

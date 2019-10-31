@@ -69,8 +69,17 @@
 </script>
 
 <style scoped>
+    @media screen and (orientation: landscape) {
+        #items{
+            width: 80%;
+        }
+    }
+    @media screen and (orientation: portrait) {
+        #items{
+            width: 100%;
+        }
+    }
     #items{
-        width: 80%;
         float: right;
         height: 100%;
         box-sizing: border-box;
