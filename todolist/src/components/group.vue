@@ -91,7 +91,8 @@
         methods: {
             changeshowind:function (event) {
                 //console.log(event);
-                this.allgroup[this.showind].active=false;
+                let t=this.showind;
+                this.allgroup[t].active=false;
                 let i=event.target.parentElement.getAttribute("ind");
                 this.showind=i;
                 this.allgroup[i].active=true;
@@ -124,10 +125,14 @@
                     this.showind=0;
                     this.allgroup[0].active=true;
                 }
+                else if(this.showind>i){
+                    this.showind--;
+                }
             }
         },
         created() {
             axios.get("http://101.132.35.12:8080/todolist/todolistServlet").then((response)=>{
+            // axios.get("http://localhost:8080/todolist/todolistServlet").then((response)=>{
                 //json转为json对象
                 let data=response.data;
                 //console.log(data);
@@ -140,6 +145,7 @@
                 }
                 this.showind=0;
                 this.allgroup[0].active=true;
+                this.nextid=this.allgroup[this.allgroup.length-1].id+1;
                 //console.log(this.allgroup.length);
             });
         },
@@ -147,20 +153,22 @@
             //console.log(newval);
             var json = JSON.stringify(this.allgroup);
             //console.log(json);
+            //axios.post("http://localhost/todolist:8080/todolistServlet", json);
             axios.post("http://101.132.35.12:8080/todolist/todolistServlet", json);
         },
-        // watch:{
-        //     allgroup:{
-        //         handler(newval)
-        //         {
-        //             //console.log(newval);
-        //             var json = JSON.stringify(newval);
-        //             //console.log(json);
-        //             axios.post("http://101.132.35.12:8080/todolist/todolistServlet", json);
-        //         },
-        //         deep:true
-        //     }
-        // }
+        watch:{
+            allgroup:{
+                handler(newval)
+                {
+                    //console.log(newval);
+                    var json = JSON.stringify(newval);
+                    //console.log(json);
+                    //axios.post("http://localhost:8080/todolist/todolistServlet", json);
+                    axios.post("http://101.132.35.12:8080/todolist/todolistServlet", json);
+                },
+                //deep:true
+            }
+        }
     }
 </script>
 
@@ -168,11 +176,14 @@
     @media screen and (orientation: landscape) {
         #content{
             flex-direction: row;
+            -webkit-flex-direction: row;
+            -ms-flex-direction: row;
             width: 70%;
             min-width: 760px;
         }
         li{
             border-top: lightgray solid 1px;
+            line-height: 65px;
         }
         #groups{
             float: left;
@@ -180,31 +191,49 @@
             padding-top: 65px;
             padding-bottom: 35px;
         }
+        button{
+            background-position-y: bottom;
+            -ms-background-position-y: bottom;
+        }
     }
     @media screen and (orientation: portrait){
         #content{
             flex-direction: column;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            width: 100%;
+        }
+        #groups{
+            flex-basis: 50px;
+            -webkit-flex-basis: 50px;
             width: 100%;
         }
         ul{
             white-space: nowrap;
-            height: 100%;
+            height: 50px;
             width: 100%;
             overflow-x: auto;
+            -ms-overflow-x: auto;
             overflow-y: hidden;
+            -ms-overflow-y: hidden;
         }
         li{
             display: inline-block;
             width: 152px;
             border-right: lightgray solid 1px;
+            line-height: 50px;
         }
-        #groups{
-            height: 50px;
-            width: 100%;
+        button{
+            background-position-y: center;
+            -ms-background-position-y: center;
         }
     }
     #content{
         display: flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: -webkit-flex;
         justify-content: center;
         margin: auto;
         height: 100%;
@@ -219,7 +248,6 @@
     }
     li{
         height: 50px;
-        line-height: 65px;
         font-size: 18px;
         color: lightgray;
         padding-left: 10px;
@@ -239,18 +267,23 @@
         display: inline-block;
         width: 15px;
         height: 15px;
-        display: inline;
         margin-right: 10px;
     }
     button{
         background-color: transparent;
         background-image: url("../image/delete1.png");
+        -moz-background-image: url("../image/delete1.png");
+        -o-background-image: url("../image/delete1.png");
+        -webkit-background-image: url("../image/delete1.png");
         background-repeat: no-repeat;
-        background-size: 20px 20px;
+        background-size: 16px 16px;
+        -moz-background-size: 16px 16px;
+        -o-background-size: 16px 16px;
+        -webkit-background-size: 16px 16px;
         background-position-x: center;
-        background-position-y: bottom;
+        -ms-background-position-x: center;
         border: 0;
-        width: 40px;
+        width: 30px;
         height: 30px;
         margin-right: 10px;
         float: right;
@@ -263,5 +296,7 @@
     #groups::-webkit-scrollbar-thumb{
         background-color: lightgrey;
         border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
     }
 </style>

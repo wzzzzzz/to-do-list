@@ -72,16 +72,17 @@
     @media screen and (orientation: landscape) {
         #items{
             width: 80%;
+            height: 100%;
         }
     }
     @media screen and (orientation: portrait) {
         #items{
             width: 100%;
+            height: calc(100% - 50px);
         }
     }
     #items{
         float: right;
-        height: 100%;
         box-sizing: border-box;
         padding-top: 30px;
         padding-bottom: 35px;
@@ -113,6 +114,8 @@
         height: 20px;
         line-height: 20px;
         border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
         font-size: 11px;
         text-align: center;
         margin-left: 10px;

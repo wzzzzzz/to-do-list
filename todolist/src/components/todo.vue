@@ -129,6 +129,7 @@
 <style scoped>
     #mytodo{
         overflow-y: auto;
+        -ms-overflow-y: auto;
         height: calc(100% - 35px);
         box-sizing: border-box;
         padding-left: 50px;
@@ -153,6 +154,8 @@
         color: lightslategray;
         border: 1px solid lightslategray;
         border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
         line-height: 18px;
         margin-right: 10px;
     }
