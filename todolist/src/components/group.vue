@@ -90,21 +90,28 @@
             }
         },
         methods: {
-            changeshowind:function (event) {
-                //console.log(event);
+            changeshowind:function (event,newind) {
                 let t=this.showind;
                 this.allgroup[t].active=false;
-                let i=event.target.parentElement.getAttribute("ind");
+                let i=0;
+                if(event==null){
+                    i=newind;
+                }
+                else{
+                    i=event.target.parentElement.getAttribute("ind");
+
+                    let newPath=this.allgroup[i].title;
+                    i++;//为了newPath后面的数字
+                    if(newPath=="新分组"){
+                        newPath+=i;
+                    }
+                    i--;
+                    window.history.pushState(JSON.stringify(this.allgroup[i].id),"",newPath);
+                    this.$root.currentPath=newPath;
+                }
+
                 this.showind=i;
                 this.allgroup[i].active=true;
-
-                let newPath=this.allgroup[i].title;
-                i++;
-                if(newPath=="新分组"){
-                    newPath+=i;
-                }
-                window.history.pushState(JSON.stringify(this.allgroup[i]),"",newPath);
-                this.$root.currentPath=newPath;
             },
             addgroup:function () {
                 let newgroup={
@@ -133,6 +140,7 @@
                     //this.allgroup[i].active=false;
                     this.showind=0;
                     this.allgroup[0].active=true;
+                    //这里有问题，要push一个历史！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                 }
                 else if(this.showind>i){
                     this.showind--;
