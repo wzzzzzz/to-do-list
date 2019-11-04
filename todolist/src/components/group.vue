@@ -18,6 +18,7 @@
 
 <script>
     import todocontent from "./todocontent";
+    //import router from "../router";
     import axios from 'axios';
     export default {
         name: "group",
@@ -96,6 +97,14 @@
                 let i=event.target.parentElement.getAttribute("ind");
                 this.showind=i;
                 this.allgroup[i].active=true;
+
+                let newPath=this.allgroup[i].title;
+                i++;
+                if(newPath=="新分组"){
+                    newPath+=i;
+                }
+                window.history.pushState(JSON.stringify(this.allgroup[i]),"",newPath);
+                this.$root.currentPath=newPath;
             },
             addgroup:function () {
                 let newgroup={
@@ -147,6 +156,8 @@
                 this.allgroup[0].active=true;
                 this.nextid=this.allgroup[this.allgroup.length-1].id+1;
                 //console.log(this.allgroup.length);
+
+                this.$root.currentPath=this.allgroup[0].title;
             });
         },
         beforeDestroy(){

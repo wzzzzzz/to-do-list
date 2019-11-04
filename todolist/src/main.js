@@ -4,8 +4,18 @@ import "./style.css"
 
 Vue.config.productionTip = false;
 
-new Vue({
+let mainvue=new Vue({
     el:"#group",
     template: `<group></group>`,
-    components: {group}
+    components: {group},
+    data:{
+        currentPath:window.location.pathname,
+    }
+});
+
+window.addEventListener("popstate",function(){
+    mainvue.currentPath=window.location.pathname;
+    let stateobj=JSON.parse(state);
+    let ind=this.allgroup.indexOf(stateobj);
+    this.showind=ind;
 });
