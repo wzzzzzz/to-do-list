@@ -15,10 +15,10 @@ let mainvue=new Vue({
 
 window.addEventListener("popstate",function(event){
     mainvue.currentPath=window.location.pathname;
-    let id=JSON.parse(event.state);
-    console.log(id);
+    let id=event.state;
+    //console.log(id);
     let data=mainvue.$refs.group.$data.allgroup;
-    console.log(data);
+    //console.log(data);
     let i=0;
     for(i;i<data.length;i++){
         if(data[i].id>=id){
@@ -28,6 +28,10 @@ window.addEventListener("popstate",function(event){
     if(i==data.length||data[i].id>id){
         i--;
     }
-    console.log(i);
+    //console.log(i);
+    if(data[i].title!=mainvue.currentPath){
+        window.history.replaceState(data[i].id,"",data[i].title);
+        mainvue.currentPath=window.location.pathname;
+    }
     mainvue.$refs.group.changeshowind(null,i);
 });

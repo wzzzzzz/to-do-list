@@ -90,6 +90,16 @@
             }
         },
         methods: {
+            addhistory:function(i){
+                let newPath=this.allgroup[i].title;
+                // i++;//为了newPath后面的数字
+                // if(newPath=="新分组"){
+                //     newPath+=i;
+                // }
+                // i--;
+                window.history.pushState(this.allgroup[i].id,"",newPath);
+                this.$root.currentPath=newPath;
+            },
             changeshowind:function (event,newind) {
                 let t=this.showind;
                 this.allgroup[t].active=false;
@@ -99,15 +109,7 @@
                 }
                 else{
                     i=event.target.parentElement.getAttribute("ind");
-
-                    let newPath=this.allgroup[i].title;
-                    i++;//为了newPath后面的数字
-                    if(newPath=="新分组"){
-                        newPath+=i;
-                    }
-                    i--;
-                    window.history.pushState(JSON.stringify(this.allgroup[i].id),"",newPath);
-                    this.$root.currentPath=newPath;
+                    this.addhistory(i);
                 }
 
                 this.showind=i;
@@ -125,6 +127,8 @@
                 this.allgroup[this.showind].active=false;
                 this.showind=this.allgroup.length-1;
                 this.allgroup[this.allgroup.length-1].active=true;
+
+                this.addhistory(this.allgroup.length-1);
             },
             changetitle:function (msg) {
                 this.allgroup[this.showind].title=msg;
@@ -140,7 +144,10 @@
                     //this.allgroup[i].active=false;
                     this.showind=0;
                     this.allgroup[0].active=true;
-                    //这里有问题，要push一个历史！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+
+                    //let newPath=this.allgroup[0].title;
+                    window.history.replaceState(this.allgroup[0].id,"",this.allgroup[0].title);
+                    this.$root.currentPath=this.allgroup[0].title;
                 }
                 else if(this.showind>i){
                     this.showind--;
