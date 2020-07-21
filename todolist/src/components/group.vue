@@ -202,8 +202,8 @@
     @media screen and (orientation: landscape) {
         #content{
             flex-direction: row;
-            -webkit-flex-direction: row;
-            -ms-flex-direction: row;
+            /*-webkit-flex-direction: row;*/
+            /*-ms-flex-direction: row;*/
             width: 70%;
             min-width: 760px;
         }
@@ -219,7 +219,7 @@
         }
         button{
             background-position-y: bottom;
-            -ms-background-position-y: bottom;
+            /*-ms-background-position-y: bottom;*/
         }
     }
     @media screen and (orientation: portrait){
@@ -256,10 +256,10 @@
     }
     #content{
         display: flex;
-        display: -moz-flex;
-        display: -ms-flex;
-        display: -o-flex;
-        display: -webkit-flex;
+        /*display: -moz-flex;*/
+        /*display: -ms-flex;*/
+        /*display: -o-flex;*/
+        /*display: -webkit-flex;*/
         justify-content: center;
         margin: auto;
         height: 100%;
@@ -286,7 +286,7 @@
         display: inline-block;
         width:100px;
         text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
+        /*-o-text-overflow: ellipsis;*/
         white-space:nowrap;
     }
     #addimg{
@@ -298,16 +298,16 @@
     button{
         background-color: transparent;
         background-image: url("../image/delete1.png");
-        -moz-background-image: url("../image/delete1.png");
-        -o-background-image: url("../image/delete1.png");
-        -webkit-background-image: url("../image/delete1.png");
+        /*-moz-background-image: url("../image/delete1.png");*/
+        /*-o-background-image: url("../image/delete1.png");*/
+        /*-webkit-background-image: url("../image/delete1.png");*/
         background-repeat: no-repeat;
         background-size: 16px 16px;
-        -moz-background-size: 16px 16px;
-        -o-background-size: 16px 16px;
-        -webkit-background-size: 16px 16px;
+        /*-moz-background-size: 16px 16px;*/
+        /*-o-background-size: 16px 16px;*/
+        /*-webkit-background-size: 16px 16px;*/
         background-position-x: center;
-        -ms-background-position-x: center;
+        /*-ms-background-position-x: center;*/
         border: 0;
         width: 30px;
         height: 30px;
@@ -322,7 +322,7 @@
     #groups::-webkit-scrollbar-thumb{
         background-color: lightgrey;
         border-radius: 4px;
-        -moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
+        /*-moz-border-radius: 4px;*/
+        /*-webkit-border-radius: 4px;*/
     }
 </style>

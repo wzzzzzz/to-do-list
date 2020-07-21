@@ -29,8 +29,12 @@
         color: lightslategray;
         border: 1px solid lightslategray;
         border-radius: 3px;
-        line-height: 18px;
+        height: 20px;
+        line-height: 15px;
         margin-right: 10px;
+        font-size: 15px;
+        width: 130px;
+        min-width: fit-content;
     }
     .butpredded{
         background-color: lightslategray;

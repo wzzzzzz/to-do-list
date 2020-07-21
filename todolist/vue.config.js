@@ -30,17 +30,16 @@ module.exports = {
                     require("postcss-px-to-viewport")({
                         unitToConvert: "px",//指定需要转换的单位
                         viewport:750,//viewport宽度
-                        unitPrecision:3,//px转换成视窗单位的小数位
+                        unitPrecision:5,//px转换成视窗单位的小数位
                         propList: ["*"],//指定需要转化的属性，*表示所有
-                        viewportUnit: "vm",//指定需要转换成的视窗单位
-                        fontViewportUnit: "vm",//指定字体需要转换成的视窗单位
+                        viewportUnit: "vw",//指定需要转换成的视窗单位
+                        fontViewportUnit: "vw",//指定字体需要转换成的视窗单位
                         selectorBlackList: [],//指定不转换的类
                         minPixelValue:1,//小于1px就不转换
                         mediaQuery: true,//媒体查询是否转换
-
-                        landscape: false,
-                        landscapeUnit: "vm",
-                        landscapeWidth: 1560
+                        landscape: true,
+                        landscapeUnit: "vw",
+                        landscapeWidth: 1500
                     })
                 ]
             }
